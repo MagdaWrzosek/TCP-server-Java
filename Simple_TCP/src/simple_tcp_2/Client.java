@@ -16,16 +16,18 @@ public class Client {
         //I/O Buffers
 
         BufferedReader in_socket = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter out_socket = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+        PrintWriter out_socket = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()),true);
+        Scanner keyboard = new Scanner(System.in);
 
 
-            String message = in_socket.readLine();
-            System.out.println("Server says: " + message);
-            System.out.println("Say something to the server");
-            Scanner keyboard = new Scanner(System.in);
-            message = keyboard.nextLine(); //NOT WORKING :(
-        //message displayed as null
-            out_socket.println(message);
+        String user_number;
+        while ((in_socket.readLine()).startsWith("Guess")) {
+            System.out.println("Server says: Guess a number [1-10]");
+            user_number = keyboard.nextLine();
+            out_socket.println(user_number);
+        }
+
+        System.out.println("You got it right");
 
 
         socket.close();
